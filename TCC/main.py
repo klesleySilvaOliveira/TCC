@@ -3,6 +3,7 @@
 from functions import *
 from blocks_classes import *
 from DLinkedList import *
+from translator import *
 
 lista = DLinkedList()
 
@@ -19,6 +20,9 @@ json_obj = catch_blocks(file_path)
 # transfere os objetos presentes no .json para uma lista de objetos 'Block'
 lista = json_list_transfer(json_obj)
 
-lista.list_print()
+# tradutor que recebe uma lista "DLinkedList" e traduz para Python
+translate(lista)
+
+#lista.list_print()
 
 #/home/klesley/Desktop/TCC/Scratch Project(2).sb3
