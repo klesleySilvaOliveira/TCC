@@ -22,3 +22,6 @@ class Block:
 
 	def get_parent(self):
 		return self.parent
+
+	def get_inputs(self):
+		return self.inputs

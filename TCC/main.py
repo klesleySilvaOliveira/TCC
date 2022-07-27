@@ -20,6 +20,8 @@ json_obj = catch_blocks(file_path)
 # transfere os objetos presentes no .json para uma lista de objetos 'Block'
 lista = json_list_transfer(json_obj)
 
+print_formatted_json(json_obj)
+
 # tradutor que recebe uma lista "DLinkedList" e traduz para Python
 translate(lista)
 

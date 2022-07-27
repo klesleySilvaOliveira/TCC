@@ -10,7 +10,7 @@ def catch_blocks(file_name):
 	# opening the zip file in READ mode
 	with ZipFile(file_name, 'r') as zip:  
 	    # extracting all the files
-	    print('Reading...')
+	    print('Lendo o arquivo...')
 
 	    #lê somente o arquivo "project.json" dentro do arquivo .sb3 e coloca no obj "data"
 	    data = zip.read("project.json")
