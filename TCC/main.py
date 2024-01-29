@@ -22,9 +22,13 @@ lista = json_list_transfer(json_obj)
 
 print_formatted_json(json_obj)
 
-# tradutor que recebe uma lista "DLinkedList" e traduz para Python
-translate(lista)
+print("Lista")
+lista.list_print()
 
+# tradutor que recebe uma lista "DLinkedList" e traduz para Python
+translate(lista, json_obj)
+
+#print("Lista:")
 #lista.list_print()
 
-#/home/klesley/Desktop/TCC/Scratch Project(2).sb3
+#/home/klesley/Desktop/TCC/Testes/Scratch Project(2).sb3

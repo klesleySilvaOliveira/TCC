@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Block:
-	def __init__(self, code, opcode, next, parent, inputs, fields, shadow, topLevel):
+	def __init__(self, code, opcode, next, parent, inputs, fields, shadow, topLevel, indentation):
 		self.code = code
 		self.opcode = opcode
 		self.next = next
@@ -10,6 +10,7 @@ class Block:
 		self.fields = fields
 		self.shadow = shadow
 		self.topLevel = topLevel
+		self.indentation = indentation
 
 	def get_opcode(self):
 		return self.opcode
@@ -25,3 +26,9 @@ class Block:
 
 	def get_inputs(self):
 		return self.inputs
+
+	def get_fields(self):
+		return self.fields
+
+	def get_indentation(self):
+		return self.indentation

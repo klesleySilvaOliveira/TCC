@@ -29,6 +29,26 @@ class DLinkedList:
          self.begin = aux
       self.end = aux
       self.size += 1
+
+   #recebe o objeto bloco e insere ele após o seu atributo prev
+   def insert_by_code(self, block):
+      aux = DLNode(block)
+      code = aux.data.get_parent()
+      node = self.begin
+      if node is None:
+         print("Lista vazia!")
+      while (node is not None):
+         if node.data.get_code() == code:
+            break
+         node = node.next
+      aux.next = node.next
+      aux.prev = node
+      node.next = aux
+      if aux.next is not None:
+         aux.next.prev = aux
+      else:
+         self.end = aux
+         self.size += 1
 	
    def list_print(self):
       node = self.begin

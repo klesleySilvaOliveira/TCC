@@ -45,38 +45,69 @@ def json_list_transfer(json_obj):
 				json_obj[x]['inputs'],
 				json_obj[x]['fields'],
 				json_obj[x]['shadow'],
-				json_obj[x]['topLevel'])
+				json_obj[x]['topLevel'],
+				0)
 
 			# adiciona o objeto 'block' no início da 'lista'
 			lista.push_front(block)
 			break
 
+	# retira o último objeto da lista e cria uma imagem na variável 'node'
+	node = lista.pop_back()
+
+	# insere 'node' novamente na lista
+	lista.push_back(node)
+
+	# adiciona o atributo 'next' de 'node' na variável 'code' 
+	code = node.get_next()
+
+	rec_insert(json_obj, lista, code)
+
+	return lista
+
+#realiza, de forma recursiva, a inserção de itens e sub-itens na lista
+def rec_insert(json_obj, lista, code):
+	# cria um objeto tipo 'Block' com os atributos alcançados pela variável 'code', atuando feito uma lista encadeada
+	block = Block(code, 
+			json_obj[code]['opcode'],
+			json_obj[code]['next'],
+			json_obj[code]['parent'],
+			json_obj[code]['inputs'],
+			json_obj[code]['fields'],
+			json_obj[code]['shadow'],
+			json_obj[code]['topLevel'],
+			0)
+
+	# adiciona o objeto 'block' no fim da 'lista'
+	lista.push_back(block)
+
+	#condição de quebra de recursividade
+	if block.get_next() is None:
+		return
+	else:
+		rec_insert(json_obj, lista, block.get_next())
+
+#insere em uma lista já pronta, uma sublista
+def insert_by_code(json_obj, lista, code, indentacao):
+	aux = code
+	indenta = indentacao + 1
+
 	while True:
-		# retira o último objeto da lista e cria uma imagem na variável 'node'
-		node = lista.pop_back()
-
-		# insere 'node' novamente na lista
-		lista.push_back(node)
-
-		# adiciona o atributo 'next' de 'node' na variável 'code' 
-		code = node.get_next()
-
 		# cria um objeto tipo 'Block' com os atributos alcançados pela variável 'code', atuando feito uma lista encadeada
-		block = Block(code, 
-				json_obj[code]['opcode'],
-				json_obj[code]['next'],
-				json_obj[code]['parent'],
-				json_obj[code]['inputs'],
-				json_obj[code]['fields'],
-				json_obj[code]['shadow'],
-				json_obj[code]['topLevel'])
+		block = Block(aux, 
+				json_obj[aux]['opcode'],
+				json_obj[aux]['next'],
+				json_obj[aux]['parent'],
+				json_obj[aux]['inputs'],
+				json_obj[aux]['fields'],
+				json_obj[aux]['shadow'],
+				json_obj[aux]['topLevel'],
+				indenta)
 
 		# adiciona o objeto 'block' no fim da 'lista'
-		lista.push_back(block)
-		#print(node.get_code(), node.get_opcode(), node.get_next(), node.get_parent())
+		lista.insert_by_code(block)
 
 		# caso o parâmetro 'next' do objeto 'block' seja nulo, finaliza o loop
 		if block.get_next() is None:
-			break
-
-	return lista
+			return
+		aux = block.get_next()
