@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # importing required modules
 import os
+from natsort import natsorted # pip install natsort
 
 #variavel global para reservar o nome do arquivo
 file_name = ''
@@ -8,7 +9,7 @@ file_name = ''
 def change_my_dir():
 
 	mydir = os.getcwd()
-	results = '/results'
+	results = '/Results'
 
 	if results in mydir:
 		return
@@ -24,17 +25,17 @@ def change_my_dir():
 
 def lists_all_files():
 	#se fez necessário usar sorted pois, se a lista não estiver ordenada, irá gerar erro caso já existam itens na pasta de forma desordenada
-	return sorted(os.listdir(os.getcwd()))
+	#return sorted(os.listdir(os.getcwd()))
+	#devido ao sorted ter problemas quando temos 1, 10, e 2, ficando nessa ordem, por exemplo, teremos problemas na criação de files. por isso se fez necessário usar a biblioteca 'natsorted', que organizaria como 1, 2 e 10, por exemplo.
+	return natsorted(os.listdir(os.getcwd()))
 
 def file_number():
 	files = lists_all_files()
 	x = 1
 
 	for f in files:
-		if f.__contains__(str(x)):
-			print(x, " existe")
-		else:
-			return x
+		if  not f.__contains__(str(x)):
+			return x			
 		
 		x+=1
 
@@ -52,6 +53,6 @@ def write(string):
 	change_my_dir()
 	file_name = get_a_file()
 	f = open(file_name, "a")
-	f.write(string + '\n')
+	f.write(string + "\n")
 	f.close()
 	return
